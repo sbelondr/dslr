@@ -27,15 +27,15 @@ def display_line(name_line, line, wh_col, start):
     print(result)
 
 def display_describe(l_name, l_cnt, l_mean, l_std, l_min, l_25, l_50, l_75, l_max, l_sz_column):
-    # display_line('', l_name, l_sz_column, 1)
-    # display_line('Count', l_cnt, l_sz_column, 0)
-    # display_line('Mean', l_mean, l_sz_column, 0)
+    display_line('', l_name, l_sz_column, 1)
+    display_line('Count', l_cnt, l_sz_column, 0)
+    display_line('Mean', l_mean, l_sz_column, 0)
     display_line('Std', l_std, l_sz_column, 0)
-    # display_line('Min', l_min, l_sz_column, 0)
-    # display_line('25%', l_25, l_sz_column, 0)
-    # display_line('50%', l_50, l_sz_column, 0)
-    # display_line('75%', l_75, l_sz_column, 0)
-    # display_line('Max', l_max, l_sz_column, 0)
+    display_line('Min', l_min, l_sz_column, 0)
+    display_line('25%', l_25, l_sz_column, 0)
+    display_line('50%', l_50, l_sz_column, 0)
+    display_line('75%', l_75, l_sz_column, 0)
+    display_line('Max', l_max, l_sz_column, 0)
     pass
 
 
@@ -88,7 +88,6 @@ def ft_describe(argv):
         i += 1;
 
     display_describe(line_name, line_count, line_mean, line_std, line_min, line_25, line_50, line_75, line_max, line_sz_column)
-    print(df.describe())
 
 if __name__ == "__main__":
     ft_describe(sys.argv[0])
