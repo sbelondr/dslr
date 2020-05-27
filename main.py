@@ -6,7 +6,7 @@
 #    By: samuel <samuel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/20 19:04:56 by sbelondr          #+#    #+#              #
-#    Updated: 2020/05/27 12:29:28 by samuel           ###   ########.fr        #
+#    Updated: 2020/05/27 13:52:59 by samuel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,8 @@ def histogram():
     # all_X = delete_column(all_X, ['Index', 'Hogwarts House', 'First Name', 'Last Name', 'Birthday', 'Best Hand'])
     clr = ['red', 'blue', 'orange', 'green', 'purple', 'grey']
     i = 0
+
+    plt.figure()
     for x in all_X:
         tmp = x
         tmp = tmp[~np.isnan(tmp)]

@@ -8,7 +8,19 @@ def ft_count(arr):
             cnt += 1
     return cnt
 
+def ft_sum(arr):
+    result = 0
+    for x in arr:
+        if not math.isnan(x):
+            result += x
+    return result
+
 def ft_mean(arr):
+    '''
+    average
+    Returns:
+        average for array
+    '''
     cnt = 0
     sum_arr = 0
     for x in arr:
@@ -20,9 +32,15 @@ def ft_mean(arr):
     return final
 
 def ft_std(arr):
+    '''
+    https://www.mathsisfun.com/data/standard-deviation-formulas.html
+    The Standard Deviation (std) is a measure of how spread out numbers are
+    Returns:
+        sample standard deviation over requested axis
+    '''
     mean = ft_mean(arr)
     result = (arr - mean)**2
-    final = ft_mean(result)
+    final = ft_sum(result) * (1 / ft_count(arr))
     final = final**(0.5)
     return final
 
