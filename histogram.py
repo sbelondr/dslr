@@ -12,35 +12,14 @@
 
 
 from pylib.ft_open_csv import ft_open_csv
+from pylib.get_name_column_number import get_name_column_number
+from pylib.separate_value import separate_value
 from describe import ft_describe
 import matplotlib.pyplot as plt
+import numpy as np
 
 from pylib.math import *
 
-import numpy as np
-
-def separate_value(df, column, rm_old_column):
-    all_categ = df[str(column)]
-    all_categ = list(set(all_categ))
-    result = []
-
-    for categ in all_categ:
-        tmp = df[str(column)] == categ
-        data = df[tmp] # np.array(df[tmp].iloc[:, rm_old_column:], dtype=float)
-        result.append(data)
-    return all_categ, result
-
-def get_name_column_number(df):
-    '''
-    Returns:
-        array with name column contain only number
-    '''
-    my_lst = list(df)
-    cols = []
-    for x in my_lst:
-        if np.issubdtype(df[x].dtype, np.number):
-            cols.append(x)
-    return cols
 
 def calc_std(df, all_X, categs):
     cols = get_name_column_number(df)
@@ -74,7 +53,6 @@ def histogram():
 
 def main():
     histogram();
-    # ft_describe('ressources/datasets/dataset_train.csv');
 
 
 if __name__ == "__main__":
