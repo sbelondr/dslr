@@ -1,10 +1,12 @@
 import numpy as np
-import seaborn as sns
+import  seaborn as sns
 import matplotlib.pyplot as plt
 from pylib.ft_open_csv import ft_open_csv
 
+
 def pairplot():
     df = ft_open_csv('ressources/datasets/dataset_train.csv')
+    df.dropna()
 
     del df['Index']
     # similaire result (see Histogram)
