@@ -1,21 +1,20 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    main.py                                            :+:      :+:    :+:    #
+#    histogram.py                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: samuel <samuel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/20 19:04:56 by sbelondr          #+#    #+#              #
-#    Updated: 2020/05/27 13:52:59 by samuel           ###   ########.fr        #
+#    Updated: 2021/02/10 17:22:04 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+import sys
 from pylib.ft_open_csv import ft_open_csv
 from describe import ft_describe
 import matplotlib.pyplot as plt
-
 from pylib.math import *
-
 import numpy as np
 
 def separate_value(df, column, rm_old_column):
@@ -47,7 +46,6 @@ def calc_std(df, all_X, categs):
     
     for col in cols:
         if col == 'Care of Magical Creatures':
-#         if not col == 'Index':
             h1 = ft_std(all_X[0][col])
             h2 = ft_std(all_X[1][col])
             h3 = ft_std(all_X[2][col])
@@ -61,17 +59,17 @@ def calc_std(df, all_X, categs):
             plt.ylabel('std')
             plt.show()
 
-def histogram():
-    df = ft_open_csv('ressources/datasets/dataset_train.csv')
+def histogram(filename):
+    df = ft_open_csv(filename)
     # drop nan value
     df.dropna()
     categs, all_X = separate_value(df, 'Hogwarts House', 6)
-    # drop value useless
-    #all_X = delete_column(all_X, ['Index', 'Hogwarts House', 'First Name', 'Last Name', 'Birthday', 'Best Hand'])
     clr = ['red', 'blue', 'orange', 'green', 'purple', 'grey']
     i = 0
     calc_std(df, all_X, categs)
 
-histogram()
 if __name__ == "__main__":
-    histogram();
+    if len(sys.argv) == 2:
+        histogram(sys.argv[1])
+    else:
+        print("python3 histogram.py <file.csv>")

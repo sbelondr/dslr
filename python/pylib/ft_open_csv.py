@@ -6,11 +6,12 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/20 14:54:02 by sbelondr          #+#    #+#              #
-#    Updated: 2020/05/20 17:27:58 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/02/10 17:13:19 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import pandas as pd
+import sys
 
 def ft_open_csv(filename):
     '''
@@ -20,11 +21,12 @@ def ft_open_csv(filename):
     Return:
         dataframe
     '''
+    if filename == "":
+        print("You didn't give a file")
+        sys.exit(-1)
     try:
         df = pd.read_csv(str(filename))
     except IOError:
         print("File error")
-        return -1
-    # X = df.iloc[0:len(df),0]
-    # Y = df.iloc[0:len(df),1]
+        sys.exit(-1)
     return df

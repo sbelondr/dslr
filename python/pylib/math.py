@@ -1,6 +1,11 @@
 import math
 import numpy as np
 
+def ft_division(a, b):
+    if a == 0 or b == 0:
+        return 0
+    return a / b
+
 def ft_count(arr):
     cnt = 0
     for x in arr:
@@ -27,7 +32,7 @@ def ft_mean(arr):
         if not math.isnan(x):
             cnt += 1
             sum_arr += x
-    sum_arr /= cnt
+    sum_arr = ft_division(sum_arr, cnt)
     final = sum_arr
     return final
 
@@ -40,7 +45,7 @@ def ft_std(arr):
     '''
     mean = ft_mean(arr)
     result = (arr - mean)**2
-    final = ft_sum(result) * (1 / ft_count(arr))
+    final = ft_sum(result) * (ft_division(1, ft_count(arr)))
     final = final**(0.5)
     return final
 
@@ -62,7 +67,7 @@ def ft_percentile(arr, p):
     new_arr = np.array(arr)
     new_arr.sort()
     size = ft_count(new_arr) - 1
-    k = size * (p / 100)
+    k = size * (ft_division(p, 100))
     floor = np.floor(k)
     ceil = np.ceil(k)
     if floor == ceil:

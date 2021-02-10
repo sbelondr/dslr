@@ -71,6 +71,7 @@ class LogisticRegression(object):
                 gradient = np.dot(X.T, h)
                 theta += 5e-5 * gradient
             self.theta.append((theta, i))
+        self.theta = np.array(self.theta, dtype=object)
         return self
 
     def score(self, X, y):
