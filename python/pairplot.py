@@ -15,7 +15,7 @@ def pairplot(filename):
     # data identic with defense ag. (see scatter_plot)
     del df['Astronomy']
 
-    sns.pairplot(df, hue="Hogwarts House", markers = ".")
+    sns.pairplot(df, hue="Hogwarts House", palette=dict(Ravenclaw = "Blue", Slytherin = "Green", Hufflepuff = "Yellow", Gryffindor = "Red"),markers = ".")
     plt.show()
 
 if __name__ == "__main__":
