@@ -6,7 +6,7 @@
 #    By: samuel <samuel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/20 19:04:56 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/10 17:22:04 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/02/12 12:07:00 by jayache          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,37 +39,51 @@ def get_name_column_number(df):
         if np.issubdtype(df[x].dtype, np.number):
             cols.append(x)
     return cols
-    
 
-def calc_std(df, all_X, categs):
+
+def calc_std(df, all_X, categ, lame_mode):
     cols = get_name_column_number(df)
-    
+
     for col in cols:
         if col == 'Care of Magical Creatures':
             h1 = ft_std(all_X[0][col])
             h2 = ft_std(all_X[1][col])
             h3 = ft_std(all_X[2][col])
             h4 = ft_std(all_X[3][col])
-        
-            plt.hist(h1, 50, alpha=0.5, color='r')
-            plt.hist(h2, 50, alpha=0.5, color='g')
-            plt.hist(h3, 50, alpha=0.5, color='b')
-            plt.hist(h4, 50, alpha=0.5, color='y')
-            plt.xlabel(col)
-            plt.ylabel('std')
+
+            if (not lame_mode):
+                plt.hist(all_X[0][col], 50, alpha=0.5, color='r')
+                plt.hist(all_X[1][col], 50, alpha=0.5, color='g')
+                plt.hist(all_X[2][col], 50, alpha=0.5, color='b')
+                plt.hist(all_X[3][col], 50, alpha=0.5, color='y')
+                plt.xlabel("grades")
+                plt.ylabel('students')
+                plt.title(col)
+            else:
+                plt.hist(h1, 50, alpha=0.5, color='r')
+                plt.hist(h2, 50, alpha=0.5, color='g')
+                plt.hist(h3, 50, alpha=0.5, color='b')
+                plt.hist(h4, 50, alpha=0.5, color='y')
+                plt.xlabel(col)
+                plt.ylabel("std")
             plt.show()
 
-def histogram(filename):
+def histogram(filename, lame_mode = "Nothing"):
     df = ft_open_csv(filename)
     # drop nan value
     df.dropna()
     categs, all_X = separate_value(df, 'Hogwarts House', 6)
     clr = ['red', 'blue', 'orange', 'green', 'purple', 'grey']
     i = 0
-    calc_std(df, all_X, categs)
+    if (lame_mode == "-l"):
+        calc_std(df, all_X, categs, True)
+    else:
+        calc_std(df, all_X, categs, False)
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
         histogram(sys.argv[1])
+    elif len(sys.argv) == 3:
+        histogram(sys.argv[1], sys.argv[2])
     else:
         print("python3 histogram.py <file.csv>")
