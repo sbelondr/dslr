@@ -94,3 +94,4 @@ if __name__ == "__main__":
         ft_describe(sys.argv[1])
     else:
         print("python3 describe.py <file.csv>")
+        sys.exit(1)
