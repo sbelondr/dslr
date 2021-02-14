@@ -6,7 +6,7 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/20 14:54:02 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/10 17:13:19 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/02/13 08:28:44 by jayache          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,10 @@ def ft_open_csv(filename):
     '''
     if filename == "":
         print("You didn't give a file")
-        sys.exit(-1)
+        sys.exit(1)
     try:
         df = pd.read_csv(str(filename))
     except IOError:
         print("File error")
-        sys.exit(-1)
+        sys.exit(1)
     return df

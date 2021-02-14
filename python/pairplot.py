@@ -23,3 +23,4 @@ if __name__ == "__main__":
         pairplot(sys.argv[1])
     else:
         print("python3 pairplot.py <file.csv>")
+        sys.exit(1)

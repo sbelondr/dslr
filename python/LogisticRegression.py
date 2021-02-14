@@ -43,7 +43,6 @@ class LogisticRegression(object):
         y = np.array(data.loc[:, "Hogwarts House"])
         return X, y
 
-
     def set_theta(self, theta):
         self.theta = theta
 

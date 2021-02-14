@@ -16,3 +16,4 @@ if __name__ == "__main__":
         scatter_plot(sys.argv[1])
     else:
         print("python3 scatter_plot.py <file.csv>")
+        sys.exit(1)

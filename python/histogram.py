@@ -6,7 +6,7 @@
 #    By: samuel <samuel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/20 19:04:56 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/12 12:07:00 by jayache          ###   ########.fr        #
+#    Updated: 2021/02/13 08:32:00 by jayache          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,3 +87,4 @@ if __name__ == "__main__":
         histogram(sys.argv[1], sys.argv[2])
     else:
         print("python3 histogram.py <file.csv>")
+        sys.exit(1)
