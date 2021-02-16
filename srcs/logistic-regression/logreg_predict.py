@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    sgd_predict.py                                     :+:      :+:    :+:    #
+#    logreg_predict.py                                  :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/16 13:50:58 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/16 14:00:06 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/02/16 14:26:25 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,11 +28,21 @@ def prepare_X(filename):
     X = np.array(X)
     return X
 
+def format_array(arr):
+    form = list()
+    form.append("Index,Hogwarts House\n")
+    for i, x in enumerate(arr, start=0):
+        form.append(str(i) + ',' + x + '\n')
+    with open('houses.csv', 'w') as f:
+        for x in form:
+            f.write(x)
+        f.close()
+
 def ft_predict(filename):
     theta = np.load('theta.npy', allow_pickle=True)
     X_test = prepare_X(filename)
     predict = LogisticRegression().predict(X_test, theta)
-    print(predict)
+    format_array(predict)
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
