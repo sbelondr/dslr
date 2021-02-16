@@ -1,26 +1,41 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    logreg_train.py                                    :+:      :+:    :+:    #
+#    sgd.py                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/02/10 17:51:17 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/10 17:56:21 by sbelondr         ###   ########.fr        #
+#    Created: 2021/02/16 13:27:09 by sbelondr          #+#    #+#              #
+#    Updated: 2021/02/16 13:55:11 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import sys
 import numpy as np
+import pandas as pd
 from LogisticRegression import LogisticRegression
 
-def ft_train(filename):
-    X, y = LogisticRegression().prepare_X_Y(filename)
-    logi = LogisticRegression(n_iteration=30000).fit(X, y)
+def prepare_X_Y(filename):
+    data = pd.read_csv(filename, sep=",", index_col="Index")
+    data = data.dropna()
 
-    print(logi.theta)
+    # similaire result (see Histogram)
+    del data['Care of Magical Creatures']
+    del data['Arithmancy']
+    # data identic with defense ag. (see scatter_plot)
+    del data['Astronomy']
+
+    X = np.array((data.iloc[:,5:]))
+    y = np.array(data.loc[:, "Hogwarts House"])
+    return X, y
+
+def ft_train(filename):
+    # train
+    X, y = prepare_X_Y(filename)
+    logi = LogisticRegression(learning_rate=0.01, n_iteration=300000, cost_threshold=0.01).fit(X, y)
+    print("\nScore is: {}.".format(logi.score(X, y)))
     np.save('theta', logi.theta)
-    print(logi.score(X, y))
+    return logi
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
