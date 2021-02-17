@@ -6,7 +6,7 @@
 #    By: samuel <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/16 13:16:50 by samuel            #+#    #+#              #
-#    Updated: 2021/02/16 13:58:32 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/02/17 10:50:39 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,15 +44,15 @@ class LogisticRegression():
         cost = 1 / 2 * np.dot(theta, theta) + hinge_loss
         return cost
     
-    def _gradient_descent(self, X, h, theta, y, m):
+    def _gradient_descent(self, X, h, theta, y, size):
         '''
         theta = theta - alpha * sigma(h^i - y^i)(X^ij)
         '''
-        gradient_value = np.dot(X.T, (h - y)) / m
+        gradient_value = np.dot(X.T, (h - y)) / size
         theta -= self.learning_rate * gradient_value
         return theta
 
-    def _sgd(self, X, y, m):
+    def _sgd(self, X, y, size):
         dic = dict()
 
         for i in np.unique(y):
@@ -66,11 +66,10 @@ class LogisticRegression():
             for epoch in range(self.n_iter):
                 z = X.dot(theta)
                 h = self._sigmoid_function(z)
-                theta = self._gradient_descent(X, h, theta, y_onevsall, m)
+                theta = self._gradient_descent(X, h, theta, y_onevsall, size)
                 dic[i].append(theta)
                 if epoch == 2 ** nth or epoch == self.n_iter:
                     cost = self._compute_cost(theta, X, y_onevsall)
-                    print("{} -> Epoch is: {} and cost is: {}".format(i, epoch, cost))
                     # stoppage criterion
                     if abs(prev_cost - cost) < self.cost_threshold * prev_cost:
                         break
@@ -78,7 +77,6 @@ class LogisticRegression():
                     nth += 1
             self.theta.append((theta, i))
             self.cost.append((cost, i))
-        self.theta_dic = dic
         self.theta = np.array(self.theta, dtype=object)
     
     def fit(self, X, y):
@@ -86,8 +84,8 @@ class LogisticRegression():
         self.cost = []
         np.apply_along_axis(self._scaling, 0, X)
         X = np.insert(X, 0, 1, axis=1)
-        m = len(y)
-        self._sgd(X, y, m)
+        size = len(y)
+        self._sgd(X, y, size)
         return self
     
     def predict(self, X, thetas):
