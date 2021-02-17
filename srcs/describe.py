@@ -48,7 +48,7 @@ def ft_size_column(line, i, max_col):
 
 
 def ft_describe(argv):
-    df = ft_open_csv(argv)
+    df = ft_open_csv(argv[1])
     my_lst = list(df);
     line_name = [];
     line_count = [];
@@ -61,10 +61,18 @@ def ft_describe(argv):
     line_max = [];
     line_sz_column = [];
 
+    sz = len(argv)
     for x in my_lst:
         if np.issubdtype(df[x].dtype, np.number):
-            line_name.append(x)
-            line_sz_column.append(len(x))
+            if sz == 2:
+                line_name.append(x)
+                line_sz_column.append(len(x))
+            else:
+                for y in range(2, sz):
+                    if argv[y] == x:
+                        line_name.append(x)
+                        line_sz_column.append(len(x))
+                        break
     # fill all array
     i = 0
     for x in line_name:
@@ -90,8 +98,8 @@ def ft_describe(argv):
     display_describe(line_name, line_count, line_mean, line_std, line_min, line_25, line_50, line_75, line_max, line_sz_column)
 
 if __name__ == "__main__":
-    if (len(sys.argv) == 2):
-        ft_describe(sys.argv[1])
+    if (len(sys.argv) > 1):
+        ft_describe(sys.argv)
     else:
         print("python3 describe.py <file.csv>")
         sys.exit(1)
