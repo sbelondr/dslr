@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    sgd.py                                             :+:      :+:    :+:    #
+#    logreg_train.py                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/16 13:27:09 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/16 13:55:11 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/02/17 10:44:11 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ def ft_train(filename):
     logi = LogisticRegression(learning_rate=0.01, n_iteration=300000, cost_threshold=0.01).fit(X, y)
     print("\nScore is: {}.".format(logi.score(X, y)))
     np.save('theta', logi.theta)
-    return logi
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
