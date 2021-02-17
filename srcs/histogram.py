@@ -6,7 +6,7 @@
 #    By: samuel <samuel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/20 19:04:56 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/13 08:32:00 by jayache          ###   ########.fr        #
+#    Updated: 2021/02/17 14:13:38 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,11 @@ from pylib.ft_open_csv import ft_open_csv
 from describe import ft_describe
 import matplotlib.pyplot as plt
 from pylib.math import *
+from pylib.ft_check_column_exist import ft_check_column_exist
 import numpy as np
 
 def separate_value(df, column, rm_old_column):
+    ft_check_column_exist(df, column)
     all_categ = df[str(column)]
     all_categ = list(set(all_categ))
     result = []

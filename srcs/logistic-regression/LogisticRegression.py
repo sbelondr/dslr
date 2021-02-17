@@ -6,7 +6,7 @@
 #    By: samuel <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/16 13:16:50 by samuel            #+#    #+#              #
-#    Updated: 2021/02/17 10:50:39 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/02/17 15:03:11 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ class LogisticRegression():
                 dic[i].append(theta)
                 if epoch == 2 ** nth or epoch == self.n_iter:
                     cost = self._compute_cost(theta, X, y_onevsall)
+                    print("{} -> Epoch is: {} and cost is: {}".format(i, epoch, cost))
                     # stoppage criterion
                     if abs(prev_cost - cost) < self.cost_threshold * prev_cost:
                         break

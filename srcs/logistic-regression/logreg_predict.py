@@ -6,18 +6,35 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/16 13:50:58 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/16 14:26:25 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/02/17 15:16:38 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+import os.path
 import sys
 import numpy as np
 import pandas as pd
 from LogisticRegression import LogisticRegression
 
+def ft_check_column_exist(df, column):
+    for x in df:
+        if x == column:
+            return
+    print("Column {} not exist".format(column), file = sys.stderr)
+    sys.exit(-1)
+
 def prepare_X(filename):
-    data = pd.read_csv(filename, index_col='Index')
+    try:
+        data = pd.read_csv(filename, index_col='Index')
+    except:
+        print('Error during open file', file = sys.stderr)
+        sys.exit(-1)
+
     # similaire result (see Histogram)
+    ft_check_column_exist(data, 'Care of Magical Creatures')
+    ft_check_column_exist(data, 'Arithmancy')
+    ft_check_column_exist(data, 'Astronomy')
+
     del data['Care of Magical Creatures']
     del data['Arithmancy']
     # data identic with defense ag. (see scatter_plot)
@@ -39,6 +56,9 @@ def format_array(arr):
         f.close()
 
 def ft_predict(filename):
+    if not os.path.isfile('theta.npy'):
+        print('File not exist', file = sys.stderr)
+        sys.exit(-1)
     theta = np.load('theta.npy', allow_pickle=True)
     X_test = prepare_X(filename)
     predict = LogisticRegression().predict(X_test, theta)
