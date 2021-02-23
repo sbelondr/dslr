@@ -6,7 +6,7 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/16 13:27:09 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/23 11:06:32 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/02/23 11:10:58 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ def prepare_X_Y(filename):
     # check if columns exists
     try:
         data = pd.read_csv(filename, sep=",", index_col="Index")
-        #data = data.dropna()
     except:
         print('Error during open file', file = sys.stderr)
         sys.exit(-1)

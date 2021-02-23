@@ -6,7 +6,7 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/16 13:50:58 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/23 11:04:00 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/02/23 11:11:04 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ def prepare_X(filename):
     del data['Astronomy']
 
     X = data.iloc[:,5:]
-    #X = X.dropna()
     X = np.array(X)
     X = np.nan_to_num(X, nan=1)
     return X
