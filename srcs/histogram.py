@@ -43,11 +43,11 @@ def get_name_column_number(df):
     return cols
 
 
-def calc_std(df, all_X, categ, lame_mode):
+def calc_std(df, all_X, categ, all_column, lame_mode):
     cols = get_name_column_number(df)
 
     for col in cols:
-        if col == 'Care of Magical Creatures':
+        if col == 'Care of Magical Creatures' or all_column:
             h1 = ft_std(all_X[0][col])
             h2 = ft_std(all_X[1][col])
             h3 = ft_std(all_X[2][col])
@@ -70,23 +70,27 @@ def calc_std(df, all_X, categ, lame_mode):
                 plt.ylabel("std")
             plt.show()
 
-def histogram(filename, lame_mode = "Nothing"):
-    df = ft_open_csv(filename)
-    # drop nan value
-    df.dropna()
+def histogram(df, all_column, lame_mode = "Nothing"):
     categs, all_X = separate_value(df, 'Hogwarts House', 6)
     clr = ['red', 'blue', 'orange', 'green', 'purple', 'grey']
     i = 0
     if (lame_mode == "-l"):
-        calc_std(df, all_X, categs, True)
+        calc_std(df, all_X, categs, all_column, True)
     else:
-        calc_std(df, all_X, categs, False)
+        calc_std(df, all_X, categs, all_column, False)
+
+def histogram_list(filename, lame_mode = "Nothing"):
+    df = ft_open_csv(filename)
+    # drop nan value
+    df.dropna()
+    histogram(df, False, lame_mode)
+
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
-        histogram(sys.argv[1])
+        histogram_list(sys.argv[1])
     elif len(sys.argv) == 3:
-        histogram(sys.argv[1], sys.argv[2])
+        histogram_list(sys.argv[1], sys.argv[2])
     else:
         print("python3 histogram.py <file.csv>")
         sys.exit(1)
