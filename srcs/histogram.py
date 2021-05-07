@@ -6,7 +6,7 @@
 #    By: samuel <samuel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/20 19:04:56 by sbelondr          #+#    #+#              #
-#    Updated: 2021/02/17 14:13:38 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/05/07 13:19:24 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,18 +79,27 @@ def histogram(df, all_column, lame_mode = "Nothing"):
     else:
         calc_std(df, all_X, categs, all_column, False)
 
-def histogram_list(filename, lame_mode = "Nothing"):
+def parse(args):
+    result = [0,0]
+    for line in args:
+        if line == '-l':
+            result[0] = 1
+        if line == '--all':
+            result[1] = 1
+    return result
+
+def histogram_list(filename, options):
     df = ft_open_csv(filename)
     # drop nan value
     df.dropna()
-    histogram(df, False, lame_mode)
+    histogram(df, options[1], '-l' if options[0] else 'Nothing')
 
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
-        histogram_list(sys.argv[1])
-    elif len(sys.argv) == 3:
-        histogram_list(sys.argv[1], sys.argv[2])
+        histogram_list(sys.argv[1], [0,0])
+    elif len(sys.argv) > 2:
+        histogram_list(sys.argv[1], parse(sys.argv[2:]))
     else:
         print("python3 histogram.py <file.csv>")
         sys.exit(1)
